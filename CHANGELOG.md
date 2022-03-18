@@ -2,6 +2,12 @@
 
 The change log shows what have been Added, Changed, Deprecated and Removed between versions. 
 
+## 0.16.2
+
+### Changed
+
+- Allowed PHP 8
+
 ## 0.16.1
 
 ### Added
