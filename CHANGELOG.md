@@ -2,6 +2,12 @@
 
 The change log shows what have been Added, Changed, Deprecated and Removed between versions. 
 
+## 0.16.3
+
+### Changed
+
+- Renamed package to simonberger/buzz
+
 ## 0.16.2
 
 ### Changed
