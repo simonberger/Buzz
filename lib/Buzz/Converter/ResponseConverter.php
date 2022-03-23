@@ -19,7 +19,9 @@ class ResponseConverter
     {
         if ($response instanceof ResponseInterface) {
             return $response;
-        } elseif (!$response instanceof Response) {
+        }
+
+        if (!$response instanceof Response) {
             throw new LogicException('Only instances of PSR7 Response and Buzz responses are allowed');
         }
 
@@ -45,7 +47,9 @@ class ResponseConverter
     {
         if ($response instanceof Response) {
             return $response;
-        } elseif (!$response instanceof ResponseInterface) {
+        }
+
+        if (!$response instanceof ResponseInterface) {
             throw new LogicException('Only instances of PSR7 Response and Buzz responses are allowed');
         }
 

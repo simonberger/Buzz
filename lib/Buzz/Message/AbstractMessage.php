@@ -4,7 +4,7 @@ namespace Buzz\Message;
 
 abstract class AbstractMessage implements MessageInterface
 {
-    private $headers = array();
+    private $headers = [];
     private $content;
 
     /**
@@ -19,7 +19,7 @@ abstract class AbstractMessage implements MessageInterface
     {
         $needle = $name.':';
 
-        $values = array();
+        $values = [];
         foreach ($this->getHeaders() as $header) {
             if (0 === stripos($header, $needle)) {
                 $values[] = trim(substr($header, strlen($needle)));
@@ -28,9 +28,9 @@ abstract class AbstractMessage implements MessageInterface
 
         if (false === $glue) {
             return $values;
-        } else {
-            return count($values) ? implode($glue, $values) : null;
         }
+
+        return count($values) ? implode($glue, $values) : null;
     }
 
     /**
@@ -46,11 +46,11 @@ abstract class AbstractMessage implements MessageInterface
         foreach ($this->getHeader($name, false) as $header) {
             if (false !== strpos($header, ';')) {
                 // remove header value
-                list(, $header) = explode(';', $header, 2);
+                [, $header] = explode(';', $header, 2);
 
                 // loop through attribute key=value pairs
                 foreach (array_map('trim', explode(';', trim($header))) as $pair) {
-                    list($key, $value) = explode('=', $pair);
+                    [$key, $value] = explode('=', $pair);
                     $attributes[$key] = $value;
                 }
             }
@@ -71,9 +71,7 @@ abstract class AbstractMessage implements MessageInterface
     {
         $attributes = $this->getHeaderAttributes($header);
 
-        if (isset($attributes[$attribute])) {
-            return $attributes[$attribute];
-        }
+        return $attributes[$attribute] ?? null;
     }
 
     /**

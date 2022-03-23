@@ -12,7 +12,6 @@ class Url
         'https' => 443,
     );
 
-    private $url;
     private $components;
 
     /**
@@ -37,18 +36,17 @@ class Url
                 $components['host'] = $components['path'];
                 unset($components['path']);
             } elseif (0 !== $pos) {
-                list($host, $path) = explode('/', $components['path'], 2);
+                [$host, $path] = explode('/', $components['path'], 2);
                 $components['host'] = $host;
                 $components['path'] = '/'.$path;
             }
         }
 
         // default port
-        if (isset($components['scheme']) && !isset($components['port']) && isset(self::$defaultPorts[$components['scheme']])) {
+        if (isset($components['scheme'], self::$defaultPorts[$components['scheme']]) && !isset($components['port'])) {
             $components['port'] = self::$defaultPorts[$components['scheme']];
         }
 
-        $this->url = $url;
         $this->components = $components;
     }
 
@@ -154,7 +152,7 @@ class Url
             if (isset($map[$part])) {
                 $method = $map[$part];
                 $url .= $this->$method();
-            } elseif ('\\' == $part) {
+            } elseif ('\\' === $part) {
                 $url .= next($parts);
             } elseif (!ctype_alpha($part)) {
                 $url .= $part;
@@ -181,10 +179,8 @@ class Url
     {
         if (null === $component) {
             return $this->components;
-        } elseif (isset($this->components[$component])) {
-            return $this->components[$component];
-        } else {
-            return $default;
         }
+
+        return $this->components[$component] ?? $default;
     }
 }

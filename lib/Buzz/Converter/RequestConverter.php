@@ -22,7 +22,9 @@ class RequestConverter
     {
         if ($request instanceof Psr7RequestInterface) {
             return $request;
-        } elseif (!$request instanceof RequestInterface) {
+        }
+
+        if (!$request instanceof RequestInterface) {
             throw new LogicException('Only instances of PSR7 Request and Buzz requests are allowed');
         }
 
@@ -47,7 +49,9 @@ class RequestConverter
     {
         if ($request instanceof RequestInterface) {
             return $request;
-        } elseif (!$request instanceof Psr7RequestInterface) {
+        }
+
+        if (!$request instanceof Psr7RequestInterface) {
             throw new LogicException('Only instances of PSR7 Request and Buzz requests are allowed');
         }
 

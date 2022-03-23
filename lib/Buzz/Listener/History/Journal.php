@@ -7,7 +7,7 @@ use Buzz\Message\RequestInterface;
 
 class Journal implements \Countable, \IteratorAggregate
 {
-    private $entries = array();
+    private $entries = [];
     private $limit = 10;
 
     /**
@@ -51,10 +51,10 @@ class Journal implements \Countable, \IteratorAggregate
 
     public function clear()
     {
-        $this->entries = array();
+        $this->entries = [];
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->entries);
     }
@@ -69,7 +69,7 @@ class Journal implements \Countable, \IteratorAggregate
         return $this->limit;
     }
 
-    public function getIterator()
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator(array_reverse($this->entries));
     }

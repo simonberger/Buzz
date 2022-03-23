@@ -50,7 +50,7 @@ class MultiCurl extends AbstractCurl implements BatchClientInterface
         $this->queue[] = array($request, null, $options);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->queue);
     }
@@ -73,14 +73,13 @@ class MultiCurl extends AbstractCurl implements BatchClientInterface
         }
 
         foreach (array_keys($this->queue) as $i) {
-            if (3 == count($this->queue[$i])) {
+            if (3 === count($this->queue[$i])) {
                 // prepare curl handle
-                list($request, , $options) = $this->queue[$i];
+                [$request, , $options] = $this->queue[$i];
                 $curl = static::createCurlHandle();
 
                 // remove custom option
-                unset($options['callback']);
-                unset($options['psr7_response']);
+                unset($options['callback'], $options['psr7_response']);
 
                 $this->prepare($curl, $request, $options);
                 $this->queue[$i][] = $curl;

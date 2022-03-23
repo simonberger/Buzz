@@ -10,7 +10,7 @@ class ListenerChain implements ListenerInterface
     /** @var ListenerInterface[] */
     private $listeners;
 
-    public function __construct(array $listeners = array())
+    public function __construct(array $listeners = [])
     {
         $this->listeners = $listeners;
     }
