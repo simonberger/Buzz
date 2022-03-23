@@ -16,7 +16,6 @@ use Buzz\Message\RequestInterface;
 use Buzz\Middleware\MiddlewareInterface;
 use Buzz\Util\Url;
 use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Stream;
 use Psr\Http\Message\RequestInterface as Psr7RequestInterface;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -269,7 +268,7 @@ class Browser
         $requestChainNext = $requestChainLast;
         /** @var MiddlewareInterface $middleware */
         foreach ($middlewares as $middleware) {
-            $lastCallable = function (Psr7RequestInterface $request) use ($middleware, $requestChainNext) {
+            $lastCallable = static function (Psr7RequestInterface $request) use ($middleware, $requestChainNext) {
                 return $middleware->handleRequest($request, $requestChainNext);
             };
 
